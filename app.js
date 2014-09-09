@@ -22,10 +22,11 @@ app.use(express.static(__dirname + '/public'));
 
 app.get('/tweets-for-state', function(req, res){
   var reqUrl = url.parse(req.url);
-  // queryOb = queryString.parse(reqUrl.query);
-  // jsonReq = JSON.parse(queryOb);
   var state = reqUrl.query;
-  getStateSenators(state, res);
+  redis.get("congress", function(err, reply){
+    stateReps = JSON.parse(reply)[state];
+    res.send(stateReps);
+  });
 });
 
 timesQuery.refresh();

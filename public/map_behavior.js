@@ -6,7 +6,7 @@ $(function(){
       data: clickedState,
       dataType: 'json',
       success: function(res){
-        console.log(res.msg);
+        console.log(res);
       }
     })
   })
