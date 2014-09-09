@@ -1,0 +1,7 @@
+{
+  "name": "us-corrections",
+  "dependencies": {
+    "express": "4.8.x",
+    "topojson": "1"
+  }
+}
