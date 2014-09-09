@@ -1,14 +1,14 @@
-var request = require('request')
+var request = require('request'),
+credentials = require('api_keys.js');
 
 function TimesQuery(database) {
   this.database = database;
-  this.request = request;
 }
 
 TimesQuery.prototype.refresh = function() {
   this.congress = {};
-  senateUrl = "http://api.nytimes.com/svc/politics/v3/us/legislative/congress/113/senate/members.json?&api-key=a70a2f051440f37f8729a2b648befb34:4:67126089";
-  houseUrl = "http://api.nytimes.com/svc/politics/v3/us/legislative/congress/113/house/members.json?&api-key=a70a2f051440f37f8729a2b648befb34:4:67126089";
+  senateUrl = "http://api.nytimes.com/svc/politics/v3/us/legislative/congress/113/senate/members.json?&api-key=" + credentials.times;
+  houseUrl = "http://api.nytimes.com/svc/politics/v3/us/legislative/congress/113/house/members.json?&api-key=" + credentials.times;
   query = this;
   this.makeQuery(senateUrl, 
     function(){ 
@@ -19,7 +19,7 @@ TimesQuery.prototype.refresh = function() {
 
 TimesQuery.prototype.makeQuery = function(url, callback, data) {
   query = this;
-  this.request(url, function(error, response, body){
+  request(url, function(error, response, body){
     data = JSON.parse(body).results[0].members;
     query.reduceData(data);
     callback();

@@ -5,6 +5,7 @@
     "topojson": "1",
     "request": "2.42.x",
     "node-schedule": "0.1.13",
-    "redis": "0.12.1"
+    "redis": "0.12.1",
+    "btoa": "1.1.x"
   }
 }
