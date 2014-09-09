@@ -1,6 +1,7 @@
 $(function(){
 
   $('#us_map').on('click', 'path', function(){
+    console.log('confirm');
     clickedPath = $(this);
     clickedState = clickedPath.attr('id');
     $.ajax({
@@ -11,7 +12,8 @@ $(function(){
         $sideBar = $('#side_bar');
         $mcs = $('#mcs');
         res.forEach(function(mc){
-          $mcs.append("<div class='mc "+ mc.party +"'>" + mc.name + "</div>")
+          console.log(mc);
+          $mcs.append("<div class='mc "+ mc.party +"'>" + mc.name + "</div>");
         });
         $sideBar.show();
       }

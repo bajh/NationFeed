@@ -1,5 +1,5 @@
 var request = require('request'),
-credentials = require('api_keys.js');
+credentials = require('api_keys.js').times;
 
 function TimesQuery(database) {
   this.database = database;
@@ -7,8 +7,8 @@ function TimesQuery(database) {
 
 TimesQuery.prototype.refresh = function() {
   this.congress = {};
-  senateUrl = "http://api.nytimes.com/svc/politics/v3/us/legislative/congress/113/senate/members.json?&api-key=" + credentials.times;
-  houseUrl = "http://api.nytimes.com/svc/politics/v3/us/legislative/congress/113/house/members.json?&api-key=" + credentials.times;
+  senateUrl = "http://api.nytimes.com/svc/politics/v3/us/legislative/congress/113/senate/members.json?&api-key=" + credentials;
+  houseUrl = "http://api.nytimes.com/svc/politics/v3/us/legislative/congress/113/house/members.json?&api-key=" + credentials;
   query = this;
   this.makeQuery(senateUrl, 
     function(){ 
