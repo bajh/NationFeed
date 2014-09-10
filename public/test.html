@@ -1,0 +1,43 @@
+<html >
+  <head>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular-route.js"></script>
+    <script src="angular-components.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Oleo+Script' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Muli:400,300italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+  </head>
+  <body ng-app="nationfeed">
+
+  <div id="side_bar">
+    <div id="exit">
+      x
+    </div>
+
+    <div id="mcs" ng-controller="CongressController as congress">
+      <ul ng-repeat="mc in congress.mcs">
+      
+      <li>
+        <div class="mc" ng-class="mc.party">
+          <div class="header">
+            <div class="banner"></div>
+            <div class="name">{{mc.name}}</div>
+          </div>
+          <div class="image">
+            <img ng-src="{{mc.image}}">
+          </div>
+          <div class="tweet">
+          {{mc.tweet}}
+          <div class="date">
+              {{mc.tweet_date}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+    
+    </ul>
+  </div>
+
+</body>

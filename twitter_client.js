@@ -22,13 +22,8 @@ TwitterClient.prototype.getBearerToken = function(token) {
 
 TwitterClient.prototype.getImagesAndRecentTweetsFor = function(mcs, callback) {
   twitter_handles = [];
-  no_account = [];
-  mcs.forEach(function(mc, i){
-    if (mc.twitter_account) {
-      twitter_handles.push(mc.twitter_account);
-    } else {
-      no_account.push(i);
-    }
+  mcs.forEach(function(mc){
+    twitter_handles.push(mc.twitter_account);
   });
   var options = {
     method: 'GET',
@@ -37,24 +32,85 @@ TwitterClient.prototype.getImagesAndRecentTweetsFor = function(mcs, callback) {
       'User-Agent': 'NationFeed',
       'Authorization': 'Bearer ' + credentials
     }
-  };
+  }
   request(options, function(err, res, body){
-    results = JSON.parse(body);
-    next_without_account = no_account.shift();
-    mcs.forEach(function(person, i){
-      if (next_without_account == i) {
-        next_without_account = no_account.shift();
-      } else {
-        nextResult = results.shift();
-        if (nextResult["status"]) {
-          mcs[i]["status"] = nextResult["status"]["text"];
-          mcs[i]["status_created_at"] = nextResult["status"]["created_at"];
-        }
-        mcs[i]["profile_image_url"] = nextResult["profile_image_url"];
+    twitterAccounts = JSON.parse(body);
+    twitterAccounts.forEach(function(account){
+      //Keep:
+      index = getIndexFor(mcs, account.screen_name);
+      if (account["status"]) {
+        mcs[index]["status"] = account["status"]["text"];
+        mcs[index]["status_created_at"] = account["status"]["created_at"];
       }
+      mcs[index]["profile_image_url"] = account["profile_image_url"];
     });
     callback(mcs);
   });
-}
+  //   mcs.forEach(function(person, i){
+  //     if (next_without_account == i) {
+  //       next_without_account = no_account.shift();
+  //     } else {
+  //       nextResult = results.shift();
+  //       if (nextResult && nextResult["status"]) {
+  //         mcs[i]["status"] = nextResult["status"]["text"];
+  //         mcs[i]["status_created_at"] = nextResult["status"]["created_at"];
+  //       }
+  //       if (nextResult) {
+  //         mcs[i]["profile_image_url"] = nextResult["profile_image_url"];
+  //       }
+  //     }
+};
+
+  function getIndexFor(array, twitter_handle) {
+    for(i = 0; i < array.length; i++) {
+      if (array[i]["twitter_account"].toLowerCase() == twitter_handle.toLowerCase()) {
+        return i;
+      }
+    }
+  }
+
+  // twitter_handles = [];
+  // no_account = [];
+  // mcs.forEach(function(mc, i){
+  //   if (mc.twitter_account) {
+  //     twitter_handles.push(mc.twitter_account);
+  //   } else {
+  //     no_account.push(i);
+  //   }
+  // });
+  // var options = {
+  //   method: 'GET',
+  //   url: 'https://api.twitter.com/1.1/users/lookup.json?screen_name=' + twitter_handles.join(","),
+  //   headers: {
+  //     'User-Agent': 'NationFeed',
+  //     'Authorization': 'Bearer ' + credentials
+  //   }
+  // };
+  // request(options, function(err, res, body){
+  //   if (err) {console.log(err)};
+  //   try {
+  //     results = JSON.parse(body);
+  //   }
+  //   catch (err) {
+  //     console.log('that error just happened');
+  //     console.log(body);
+  //   }
+  //   next_without_account = no_account.shift();
+  //   mcs.forEach(function(person, i){
+  //     if (next_without_account == i) {
+  //       next_without_account = no_account.shift();
+  //     } else {
+  //       nextResult = results.shift();
+  //       if (nextResult && nextResult["status"]) {
+  //         mcs[i]["status"] = nextResult["status"]["text"];
+  //         mcs[i]["status_created_at"] = nextResult["status"]["created_at"];
+  //       }
+  //       if (nextResult) {
+  //         mcs[i]["profile_image_url"] = nextResult["profile_image_url"];
+  //       }
+  //     }
+  //   });
+  //   callback(mcs);
+  // });
 
 module.exports = TwitterClient;

@@ -20,7 +20,12 @@ TimesQuery.prototype.refresh = function() {
 TimesQuery.prototype.makeQuery = function(url, callback, data) {
   query = this;
   request(url, function(error, response, body){
-    data = JSON.parse(body).results[0].members;
+    try {
+      data = JSON.parse(body).results[0].members;
+    }
+    catch(err) {
+      console.log(body);
+    }
     query.reduceData(data);
     callback();
   })
@@ -30,6 +35,7 @@ TimesQuery.prototype.reduceData = function(data, callback) {
   query = this;
   data.forEach(function(person){
     congressPerson = {};
+    // congressPerson.chamber = person.role.split(",")[0]
     congressPerson.name = person.first_name + ' ' + person.last_name;
     congressPerson.party = person.party;
     congressPerson.twitter_account = person.twitter_account;

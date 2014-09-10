@@ -50,9 +50,14 @@ table {
   position: fixed;
   height:100%;
   width:400px;
-  background-color: rgba(211, 211, 211, .5);
+  background-color: rgba(205, 214, 200, .5);
   display: none;
   overflow-x:auto;
+  border-right:3px solid rgba(53 ,56, 255, 0.5);
+  border-left:3px solid rgba(53 ,56, 255, 0.5);
+  -webkit-box-shadow: 3px 0px 0px 0px rgba(191, 0, 20, 0.5);
+  -moz-box-shadow:    3px 0px 0px 0px rgba(191, 0, 20, 0.5);
+  box-shadow:         3px 0px 0px 0px rgba(191, 0, 20, 0.5);
 }
 
 #exit {
@@ -68,19 +73,103 @@ table {
 }
 
 .mc {
-  height: 90px;
+  height: 126px;
+  color:white;
+  margin-bottom:8px;
 }
 
-.R {
-  font-family:sans-serif;
-  background-color: rgba(255, 42, 66, .8);
+.R.mc {
+  border-top: 1px solid #BF0014;
+  border-bottom: 3px solid #BF0014;
+}
+
+.D.mc {
+  border-top: 1px solid #3538FF;
+  border-bottom: 3px solid #3538FF;
+}
+
+.banner {
+  position:relative;
+  top:14px;
+  height:16px;
+}
+
+.D .banner {
+  background-color: #3538FF;
+}
+
+.R .banner {
+  background-color: #BF0014;
 }
 
 .D {
-  font-family:sans-serif;
-  background-color: rgba(42, 133, 255, .8);
+  background-color: rgba(42, 133, 255, 0.6);
+}
+
+.R {
+  background-color: rgba(244, 0, 13, 0.6);
+}
+
+.image {
+  display:inline-block;
+  height:130px;
 }
 
 .mc img {
+  margin-left: 10px;
+  margin-top:26px;
   border-radius:50%;
+}
+
+.D img {
+  -webkit-box-shadow: 5px 1px 0px 0px rgba(53 ,56, 255, 0.89);
+  -moz-box-shadow:    5px 1px 0px 0px rgba(53 ,56, 255, 0.89);
+  box-shadow:         5px 1px 0px 0px rgba(53 ,56, 255, 0.89);
+}
+
+.R img {
+  -webkit-box-shadow: 5px 1px 0px 0px rgba(191, 0, 20, 0.89);
+  -moz-box-shadow:    5px 1px 0px 0px rgba(191, 0, 20, 0.89);
+  box-shadow:         5px 1px 0px 0px rgba(191, 0, 20, 0.89);
+}
+
+.name {
+  position:absolute;
+  font-family: "Oleo Script", cursive;
+  font-weight:400;
+  font-size:23px;
+  left: 8px;
+}
+
+.twitter_account {
+  margin-left:14px;
+}
+
+.twitter_account, .twitter_account a {
+  font-family:"Muli", sans-serif;
+  font-weight:400;
+  font-size:11px;
+  text-decoration:none;
+  color:white;
+}
+
+.date {
+  display:inline-block;
+  font-weight:400;
+  margin-top:20px;
+  float:right;
+  font-family:"Muli", sans-serif;
+  color:white;
+}
+
+.tweet {
+  margin-left:10px;
+  margin-top:25px;
+  display:inline-block;
+  height:90px;
+  width:300px;
+  font-family:"Muli", sans-serif;
+  font-weight:300;
+  font-style:italic;
+  font-size:14px;
 }
