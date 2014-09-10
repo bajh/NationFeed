@@ -1,5 +1,5 @@
 var request = require('request'),
-credentials = require('api_keys.js').times;
+credentials = process.env.TIMES || require('api_keys.js').times;
 
 function TimesQuery(database) {
   this.database = database;

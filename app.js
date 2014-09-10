@@ -29,7 +29,6 @@ app.get('/tweets-for-state', function(req, res){
   redis.get("congress", function(err, reply){
     stateReps = JSON.parse(reply)[state];
     twitterClient.getImagesAndRecentTweetsFor(stateReps, function(results){
-      console.log(results);
       res.send(results);
     });
   });

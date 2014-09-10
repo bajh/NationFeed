@@ -1,11 +1,10 @@
 var request = require('request'),
-    credentials = require('api_keys.js').token;
+    api_key = process.env.TWITTER || require('api_keys.js').twitter;
 
 function TwitterClient(database) {
   this.database = database;
 }
 
-//When I publish this to Heroku I will need to pass in the correct token in order to generate the bearer token
 TwitterClient.prototype.getBearerToken = function(token) {
   var options = {
     method: 'POST',
@@ -21,6 +20,7 @@ TwitterClient.prototype.getBearerToken = function(token) {
 }
 
 TwitterClient.prototype.getImagesAndRecentTweetsFor = function(mcs, callback) {
+  credentials = this.getBearerToken(api_key);
   twitter_handles = [];
   mcs.forEach(function(mc){
     twitter_handles.push(mc.twitter_account);
@@ -36,7 +36,6 @@ TwitterClient.prototype.getImagesAndRecentTweetsFor = function(mcs, callback) {
   request(options, function(err, res, body){
     twitterAccounts = JSON.parse(body);
     twitterAccounts.forEach(function(account){
-      //Keep:
       index = getIndexFor(mcs, account.screen_name);
       if (account["status"]) {
         mcs[index]["status"] = account["status"]["text"];
@@ -46,19 +45,6 @@ TwitterClient.prototype.getImagesAndRecentTweetsFor = function(mcs, callback) {
     });
     callback(mcs);
   });
-  //   mcs.forEach(function(person, i){
-  //     if (next_without_account == i) {
-  //       next_without_account = no_account.shift();
-  //     } else {
-  //       nextResult = results.shift();
-  //       if (nextResult && nextResult["status"]) {
-  //         mcs[i]["status"] = nextResult["status"]["text"];
-  //         mcs[i]["status_created_at"] = nextResult["status"]["created_at"];
-  //       }
-  //       if (nextResult) {
-  //         mcs[i]["profile_image_url"] = nextResult["profile_image_url"];
-  //       }
-  //     }
 };
 
   function getIndexFor(array, twitter_handle) {
@@ -68,49 +54,5 @@ TwitterClient.prototype.getImagesAndRecentTweetsFor = function(mcs, callback) {
       }
     }
   }
-
-  // twitter_handles = [];
-  // no_account = [];
-  // mcs.forEach(function(mc, i){
-  //   if (mc.twitter_account) {
-  //     twitter_handles.push(mc.twitter_account);
-  //   } else {
-  //     no_account.push(i);
-  //   }
-  // });
-  // var options = {
-  //   method: 'GET',
-  //   url: 'https://api.twitter.com/1.1/users/lookup.json?screen_name=' + twitter_handles.join(","),
-  //   headers: {
-  //     'User-Agent': 'NationFeed',
-  //     'Authorization': 'Bearer ' + credentials
-  //   }
-  // };
-  // request(options, function(err, res, body){
-  //   if (err) {console.log(err)};
-  //   try {
-  //     results = JSON.parse(body);
-  //   }
-  //   catch (err) {
-  //     console.log('that error just happened');
-  //     console.log(body);
-  //   }
-  //   next_without_account = no_account.shift();
-  //   mcs.forEach(function(person, i){
-  //     if (next_without_account == i) {
-  //       next_without_account = no_account.shift();
-  //     } else {
-  //       nextResult = results.shift();
-  //       if (nextResult && nextResult["status"]) {
-  //         mcs[i]["status"] = nextResult["status"]["text"];
-  //         mcs[i]["status_created_at"] = nextResult["status"]["created_at"];
-  //       }
-  //       if (nextResult) {
-  //         mcs[i]["profile_image_url"] = nextResult["profile_image_url"];
-  //       }
-  //     }
-  //   });
-  //   callback(mcs);
-  // });
 
 module.exports = TwitterClient;
