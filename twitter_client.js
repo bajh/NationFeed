@@ -1,8 +1,9 @@
 var request = require('request'),
-    api_key = process.env.TWITTER || require('api_keys.js').twitter;
+    api_key = process.env.TWITTER || require('api_keys.js').token;
 
 function TwitterClient(database) {
   this.database = database;
+  this.credentials = api_key
 }
 
 TwitterClient.prototype.getBearerToken = function(token) {
@@ -20,7 +21,6 @@ TwitterClient.prototype.getBearerToken = function(token) {
 }
 
 TwitterClient.prototype.getImagesAndRecentTweetsFor = function(mcs, callback) {
-  credentials = this.getBearerToken(api_key);
   twitter_handles = [];
   mcs.forEach(function(mc){
     twitter_handles.push(mc.twitter_account);
@@ -30,7 +30,7 @@ TwitterClient.prototype.getImagesAndRecentTweetsFor = function(mcs, callback) {
     url: 'https://api.twitter.com/1.1/users/lookup.json?screen_name=' + twitter_handles.join(","),
     headers: {
       'User-Agent': 'NationFeed',
-      'Authorization': 'Bearer ' + credentials
+      'Authorization': 'Bearer ' + this.credentials
     }
   }
   request(options, function(err, res, body){
