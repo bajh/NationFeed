@@ -1,5 +1,5 @@
 var request = require('request'),
-    api_key = process.env.TWITTER || require('api_keys.js').token;
+    api_key = process.env.TWITTER || require('./api_keys.js').token;
 
 function TwitterClient(database) {
   this.database = database;

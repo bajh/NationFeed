@@ -7,8 +7,8 @@ var app = require('express')(),
     port = process.env.PORT || 3000,
     http = require('http').Server(app),
     schedule = require('node-schedule'),
-    TimesQuery = require('times_query.js'),
-    TwitterClient = require('twitter_client.js');
+    TimesQuery = require('./times_query.js'),
+    TwitterClient = require('./twitter_client.js');
 
 if (process.env.REDISTOGO_URL) {
   var rtg = require('url').parse(process.env.REDISTOGO_URL);
