@@ -21,8 +21,14 @@ TwitterClient.prototype.getBearerToken = function(token) {
 }
 
 TwitterClient.prototype.getImagesAndRecentTweetsFor = function(mcs, callback) {
-  twitter_handles = mcs.map(function(mc){
-    return mc.twitter_account;
+  twitter_handles = [];
+  no_account = [];
+  mcs.forEach(function(mc, i){
+    if (mc.twitter_account) {
+      twitter_handles.push(mc.twitter_account);
+    } else {
+      no_account.push(i);
+    }
   });
   var options = {
     method: 'GET',
@@ -34,10 +40,18 @@ TwitterClient.prototype.getImagesAndRecentTweetsFor = function(mcs, callback) {
   };
   request(options, function(err, res, body){
     results = JSON.parse(body);
-    results.forEach(function(person, i){
-      mcs[i]["status"] = person["status"]["text"];
-      mcs[i]["status_created_at"] = person["status"]["created_at"]; 
-      mcs[i]["profile_image_url"] = person["profile_image_url"];
+    next_without_account = no_account.shift();
+    mcs.forEach(function(person, i){
+      if (next_without_account == i) {
+        next_without_account = no_account.shift();
+      } else {
+        nextResult = results.shift();
+        if (nextResult["status"]) {
+          mcs[i]["status"] = nextResult["status"]["text"];
+          mcs[i]["status_created_at"] = nextResult["status"]["created_at"];
+        }
+        mcs[i]["profile_image_url"] = nextResult["profile_image_url"];
+      }
     });
     callback(mcs);
   });

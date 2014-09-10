@@ -47,12 +47,12 @@ table {
 /*** Styling ***/
 
 #side_bar {
- position: fixed;
- height:100%;
- width:340px;
- background-color: rgba(211, 211, 211, .5);
- right: 0;
+  position: fixed;
+  height:100%;
+  width:400px;
+  background-color: rgba(211, 211, 211, .5);
   display: none;
+  overflow-x:auto;
 }
 
 #exit {
@@ -61,4 +61,26 @@ table {
   right: 14px;
   cursor: pointer;
   font-family: sans-serif;
+}
+
+#mcs {
+  margin-top:40px;
+}
+
+.mc {
+  height: 90px;
+}
+
+.R {
+  font-family:sans-serif;
+  background-color: rgba(255, 42, 66, .8);
+}
+
+.D {
+  font-family:sans-serif;
+  background-color: rgba(42, 133, 255, .8);
+}
+
+.mc img {
+  border-radius:50%;
 }
