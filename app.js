@@ -24,6 +24,7 @@ var twitterClient = new TwitterClient(redis);
 app.use(express.static(__dirname + '/public'));
 
 app.get('/tweets-for-state', function(req, res){
+  console.log("AJAX request received!");
   var reqUrl = url.parse(req.url);
   var state = reqUrl.query;
   redis.get("congress", function(err, reply){
