@@ -1,3 +1,6 @@
+var TimesQuery = require('./times_query.js'),
+
+
 if (process.env.REDISTOGO_URL) {
   console.log('all is well')
   var rtg = require('url').parse(process.env.REDISTOGO_URL);
