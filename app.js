@@ -35,11 +35,11 @@ app.get('/tweets-for-state', function(req, res){
   });
 });
 
-timesQuery.refresh();
-var rule = new schedule.RecurrenceRule();
-rule.dayOfWeek = 0;
-var j = schedule.scheduleJob(rule, function(){
-  timesQuery.refresh();
-});
+// timesQuery.refresh();
+// var rule = new schedule.RecurrenceRule();
+// rule.dayOfWeek = 0;
+// var j = schedule.scheduleJob(rule, function(){
+//   timesQuery.refresh();
+// });
 
 http.listen(port, function(){});
