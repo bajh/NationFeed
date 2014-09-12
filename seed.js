@@ -7,8 +7,6 @@ if (process.env.REDISTOGO_URL) {
   var redis = require('redis').createClient();
 }
 
-// var timesQuery = new TimesQuery(redis);
-var twitterClient = new TwitterClient(redis);
-
 var timesQuery = new TimesQuery(redis);
+
 timesQuery.refresh();
