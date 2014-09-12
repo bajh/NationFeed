@@ -6,6 +6,7 @@
     "request": "2.42.x",
     "node-schedule": "0.1.13",
     "redis": "0.12.1",
-    "btoa": "1.1.x"
+    "btoa": "1.1.x",
+    "jake": "8.0.8"
   }
 }

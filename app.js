@@ -18,7 +18,6 @@ if (process.env.REDISTOGO_URL) {
   var redis = require('redis').createClient();
 }
 
-var timesQuery = new TimesQuery(redis);
 var twitterClient = new TwitterClient(redis);
 
 app.use(express.static(__dirname + '/public'));
